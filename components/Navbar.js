@@ -1,7 +1,23 @@
+import {useRouter} from 'next/router'
+import requests from "../utils/requests"
+
 const Navbar = () => {
+  const router = useRouter();
   return (
-    <nav>
-      <h1 className="text-5xl">2- Navbar</h1>
+    <nav className="relative" >
+      {/* to hide scrollbar install tailwind-scrollbar-hide plugin */}
+      <div className="flex px-10 sm:px-20 text-xl whitespace-nowrap space-x-10 sm:space-x-20 overflow-x-scroll scrollbar-hide">
+
+        {Object.entries(requests).map(([key, {title, url}]) => (
+          <h2 key={key} 
+          onClick={() => router.push(`/?genre=${key}`)}
+          className="cursor-pointer transition duration-100 transform hover:scale-125 hover:text-white active:text-red-500 last:pr-4" >{title}</h2>
+        ))}
+      </div>
+
+      {/* fade effect */}
+      {/* without specifying the to-color it's just becomes a transparent fade */}
+      <div className="absolute top-0 right-0 bg-gradient-to-l from-[#06202A] h-full w-1/12" />
     </nav>
   )
 }
